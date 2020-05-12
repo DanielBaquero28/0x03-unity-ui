@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 
     private int score = 0;
 
+    public int health = 5;
+
 	void FixedUpdate()
 	{
         float horizontal = Input.GetAxis("Horizontal");
@@ -25,6 +27,12 @@ public class PlayerController : MonoBehaviour
             score += 1;
             Debug.Log("Score: " + score);
             Destroy(other.gameObject);
+        }
+
+        if (other.tag == "Trap")
+        {
+            health -= 1;
+            Debug.Log("Health: " + health);
         }
     }
 }
