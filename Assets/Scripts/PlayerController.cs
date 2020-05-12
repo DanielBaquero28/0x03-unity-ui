@@ -10,6 +10,16 @@ public class PlayerController : MonoBehaviour
 
     public int health = 5;
 
+    void Update()
+    {
+        if (health == 0)
+        {
+            Debug.Log("Game Over!");
+            SceneManager.LoadScene(0);
+            health = 5;
+            score = 0;
+        }
+    }
 	void FixedUpdate()
 	{
         float horizontal = Input.GetAxis("Horizontal");
@@ -33,6 +43,11 @@ public class PlayerController : MonoBehaviour
         {
             health -= 1;
             Debug.Log("Health: " + health);
+        }
+
+        if (other.tag == "Goal")
+        {
+            Debug.Log("You win!");
         }
     }
 }
