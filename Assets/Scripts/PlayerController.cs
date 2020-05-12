@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 	public Rigidbody rb;
 	public float speed = 500f;
 
+    private int score = 0;
+
 	void FixedUpdate()
 	{
         float horizontal = Input.GetAxis("Horizontal");
@@ -15,4 +17,14 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(vector * speed);
 	}
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Pickup")
+        {
+            score += 1;
+            Debug.Log("Score: " + score);
+            Destroy(other.gameObject);
+        }
+    }
 }
