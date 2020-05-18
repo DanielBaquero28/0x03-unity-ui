@@ -1,14 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
+/// <summary> Class in charge of controlling the Player </summary>
 public class PlayerController : MonoBehaviour
 {
+    /// <summary> Player's RigidBody </summary>
 	public Rigidbody rb;
+     /// <summary> Player's speed </summary>
 	public float speed = 500f;
-
+     /// <summary> Player's score </summary>
     private int score = 0;
-
+    /// <summary> Player's health </summary>
     public int health = 5;
+    /// <summary> UI text score </summary>
+    public Text scoreText;
 
     void Update()
     {
@@ -35,7 +41,8 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Pickup")
         {
             score += 1;
-            Debug.Log("Score: " + score);
+            //Debug.Log("Score: " + score);
+            SetScoreText();
             Destroy(other.gameObject);
         }
 
@@ -49,5 +56,10 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("You win!");
         }
+    }
+
+    void SetScoreText()
+    {
+        scoreText.text = "Score: " + score.ToString();
     }
 }
