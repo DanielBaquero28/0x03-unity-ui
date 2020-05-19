@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,13 +16,20 @@ public class PlayerController : MonoBehaviour
     public int health = 5;
     /// <summary> UI text score </summary>
     public Text scoreText;
+    /// <summary> UI text health </summary>
+     public Text healthText;
+    /// <summary>  </summary>
+      public Text winLoseText;
+    /// <summary>  </summary>
+    public GameObject winLoseBg;
 
     void Update()
     {
         if (health == 0)
         {
-            Debug.Log("Game Over!");
-            SceneManager.LoadScene(0);
+            //Debug.Log("Game Over!");
+            StartCoroutine(LoadScene(3.0f));
+            LosePlayerCase();
             health = 5;
             score = 0;
         }
@@ -49,17 +57,48 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Trap")
         {
             health -= 1;
-            Debug.Log("Health: " + health);
+            //Debug.Log("Health: " + health);
+            SetHealthText();
         }
 
         if (other.tag == "Goal")
         {
-            Debug.Log("You win!");
+            //Debug.Log("You win!");
+            StartCoroutine(LoadScene(3.0f));
+            WinPlayerCase();
+
         }
     }
 
     void SetScoreText()
     {
         scoreText.text = "Score: " + score.ToString();
+    }
+
+    void SetHealthText()
+    {
+        healthText.text = "Health: " + health.ToString();
+    }
+
+    void WinPlayerCase()
+    {
+        winLoseText.text = "You Win!";
+        winLoseText.color = Color.black;
+        winLoseBg.GetComponent<Image>().color = Color.green;
+        winLoseBg.SetActive(true);
+    }
+
+    void LosePlayerCase()
+    {
+        winLoseText.text = "Game Over!";
+        winLoseText.color = Color.white;
+        winLoseBg.GetComponent<Image>().color = Color.red;
+        winLoseBg.SetActive(true);
+    }
+
+    IEnumerator LoadScene(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(0);
     }
 }
