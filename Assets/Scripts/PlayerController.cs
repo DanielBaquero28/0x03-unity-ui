@@ -33,6 +33,11 @@ public class PlayerController : MonoBehaviour
             health = 5;
             score = 0;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 	void FixedUpdate()
 	{
@@ -99,6 +104,6 @@ public class PlayerController : MonoBehaviour
     IEnumerator LoadScene(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
